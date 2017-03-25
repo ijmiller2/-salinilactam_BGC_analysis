@@ -18,7 +18,6 @@ parser.add_argument('-p','--pathway_table', help='Tab separated pathway table\
     with min and max nucleotide coordinates', required=True)
 args = vars(parser.parse_args())
 
-
 de_novo_assembly = args['assembly']
 blastn_output = os.path.splitext(de_novo_assembly)[0] + ".blastn"
 reference_assembly = args['reference']
@@ -118,13 +117,15 @@ for count,pathway in enumerate(pathway_table[0]):
             pathway_dict[pathway]['len_recovered'] += overlap
 
 #3. Report alignment info
-print("pathway\tnum_contigs\tlen_recovered\ttotal_len\tbreak_len")
-for pathway in pathway_dict:
-    num_contigs = str(len(pathway_dict[pathway]['contig_list']))
-    len_recovered = str(pathway_dict[pathway]['len_recovered'])
-    total_len = str(pathway_dict[pathway]['len'])
-    break_len = str(int(total_len) - int(len_recovered))
-    print "\t".join([pathway,num_contigs,len_recovered,total_len,break_len])
+output_name = os.path.splitext(os.path.basename(de_novo_assembly))[0] + ".out"
+with open(output_name, "w") as outfile:
+    outfile.write("pathway\tnum_contigs\tlen_recovered\ttotal_len\tbreak_len\n")
+    for pathway in pathway_dict:
+        num_contigs = str(len(pathway_dict[pathway]['contig_list']))
+        len_recovered = str(pathway_dict[pathway]['len_recovered'])
+        total_len = str(pathway_dict[pathway]['len'])
+        break_len = str(int(total_len) - int(len_recovered))
+        outfile.write("\t".join([pathway,num_contigs,len_recovered,total_len,break_len]) + "\n")
 
-print("Total aln length of this de novo assembly to the reference genome is: {}".format(total_aln_len))
-#Getting a very high number because of nested nature of for loop above
+print("Your output is in: {}".format(output_name))
+#print("Total aln length of this de novo assembly to the reference genome is: {}".format(total_aln_len))
