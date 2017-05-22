@@ -1,6 +1,6 @@
 # salinilactam_BGC_analysis
 
-This a git repository to document the analysis of slm pathway in the Marine Drugs review article "Biological and practical considerations for assembling and interpreting biosynthetic pathways"
+This a git repository to document the analysis of slm pathway in the Marine Drugs review article "Interpreting Microbial Biosynthesis in the Genomic Age: Biological and Practical Considerations"
 
 
 ## example of Illumina HiSeq2500 sequencing simulation with ART_Illumina (v.2.5.1) and assembly with SPAdes (v.3.9.0)
